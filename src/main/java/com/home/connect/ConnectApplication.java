@@ -9,4 +9,5 @@ public class ConnectApplication {
 }
 
 // CRUD - OKAY
+// DOCKER - OKAY
 // VALIDATION - OKAY

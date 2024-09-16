@@ -1,18 +1,11 @@
-version: '3.8'
 services:
-  db:
-    image: mysql:8.0
-    container_name: my_sql
-    restart: always
+  mysql:
+    container_name: 'mysql'
+    image: 'mysql:8.0'
     environment:
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
-      - MYSQL_DATABASE=home_connect
-      - MYSQL_ROOT_PASSWORD=admin
+      - 'MYSQL_DATABASE=home_connect'
+      - 'MYSQL_PASSWORD=admin'
+      - 'MYSQL_ROOT_PASSWORD=admin'
+      - 'MYSQL_USER=admin'
     ports:
       - '3306:3306'
-    volumes:
-      - mysql-volume:/var/lib/mysql
-volumes:
-  mysql-volume:
-    driver: local
