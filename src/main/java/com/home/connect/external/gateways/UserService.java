@@ -31,7 +31,8 @@ public class UserService {
                 .findById(id)
                 .orElseThrow(EntityNotFoundException::new);
 
-        if (user.getId().equals(entityExisting.getId()))
+        if (user.getId().equals(entityExisting.getId()) ||
+                entityExisting.getPermission().equals(Permission.ROLE_USER))
             return entityExisting;
 
         throw new UnauthorizedActionException();
@@ -69,8 +70,7 @@ public class UserService {
                 .findById(id)
                 .orElseThrow(EntityNotFoundException::new);
 
-        if (!entityExisting.getPermission().equals(Permission.ROLE_ADMIN) ||
-                user.getId().equals(entityExisting.getId()))
+        if (entityExisting.getPermission().equals(Permission.ROLE_SUPPORT))
             throw new UnauthorizedActionException();
 
         repository.deleteById(entityExisting.getId());
