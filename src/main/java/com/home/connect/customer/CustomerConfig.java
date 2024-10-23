@@ -1,8 +1,5 @@
-package com.home.connect.config;
+package com.home.connect.customer;
 
-import com.home.connect.customer.CustomerDetailsService;
-import com.home.connect.customer.CustomerRepository;
-import com.home.connect.customer.CustomerService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

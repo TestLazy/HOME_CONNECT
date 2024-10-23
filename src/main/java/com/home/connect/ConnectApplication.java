@@ -10,4 +10,5 @@ public class ConnectApplication {
     }
 }
 
-/// Falta apenas as propriedades
+// User poderá incluir / obter/e paginação uma propriedade
+// Admin poderá adicionar/ obter/e paginação / atualizar/ deletar uma propriedade
