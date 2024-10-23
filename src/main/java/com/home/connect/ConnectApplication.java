@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class ConnectApplication {
-    public static void main(String[] args) {SpringApplication.run(ConnectApplication.class, args);}
+    public static void main(String[] args) {
+        SpringApplication.run(ConnectApplication.class, args);
+    }
 }
 
-// CRUD - OKAY
-// DOCKER - OKAY
-// VALIDATION - OKAY
+/// Falta apenas as propriedades
