@@ -32,7 +32,7 @@ public class CustomerResource {
                 .body(service.findById(id));
     }
 
-    @PutMapping("user/{id}")
+    @PutMapping("admin/{id}")
     public ResponseEntity<String> updateById(@Valid @PathVariable Integer id,
                                              @RequestBody CustomerSignUp dto) {
         service.updateById(id, dto);

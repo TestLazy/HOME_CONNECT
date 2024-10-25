@@ -10,5 +10,5 @@ public class ConnectApplication {
     }
 }
 
-// User poderá incluir / obter/e paginação uma propriedade
-// Admin poderá adicionar/ obter/e paginação / atualizar/ deletar uma propriedade
+// O usuário poderá apenas buscar por Id (Ele mesmo)
+// O admin poderá buscar paginado, atualizar e deletar (apenas usuário)

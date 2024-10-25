@@ -51,13 +51,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/customers/user/**")
                         .hasAuthority("SCOPE_" + CustomerPermission.ROLE_USER)
 
-                        .requestMatchers(HttpMethod.PUT, "/customers/user/**")
-                        .hasAuthority("SCOPE_" + CustomerPermission.ROLE_USER)
-
                         .requestMatchers(HttpMethod.GET, "/customers/admin/**")
                         .hasAuthority("SCOPE_" + CustomerPermission.ROLE_ADMIN)
 
-                        .requestMatchers(HttpMethod.PUT, "/customers/user/**")
+                        .requestMatchers(HttpMethod.PUT, "/customers/admin/**")
                         .hasAuthority("SCOPE_" + CustomerPermission.ROLE_ADMIN)
 
                         .requestMatchers(HttpMethod.DELETE, "/customers/admin/**")
