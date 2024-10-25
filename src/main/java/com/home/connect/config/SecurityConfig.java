@@ -1,6 +1,5 @@
 package com.home.connect.config;
 
-import com.home.connect.auth.JWTService;
 import com.home.connect.customer.CustomerPermission;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -88,8 +87,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JWTService jwtCryptService() {
-        return new JWTService(jwtEncoder());
+    public JWTConfig jwtCryptService() {
+        return new JWTConfig(jwtEncoder());
     }
 
     @Bean

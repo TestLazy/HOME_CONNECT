@@ -1,11 +1,7 @@
 package com.home.connect.auth;
 
-import com.home.connect.customer.Customer;
-import com.home.connect.customer.CustomerPermission;
-import com.home.connect.customer.CustomerRepository;
-import com.home.connect.system.dtos.SignInDTO;
-import com.home.connect.system.dtos.SignUpDTO;
-import com.home.connect.system.dtos.TokenDTO;
+import com.home.connect.config.JWTConfig;
+import com.home.connect.customer.*;
 import com.home.connect.system.exceptions.EmailNotFoundException;
 import com.home.connect.system.exceptions.InvalidPasswordException;
 import com.home.connect.system.exceptions.PersonalNumberAlreadyExistsException;
@@ -15,14 +11,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class AuthService {
-    private final JWTService service;
+    private final JWTConfig service;
     private final PasswordEncoder encoder;
 
     private final CustomerRepository repository;
     private final AuthenticationManager authentication;
 
     public AuthService(
-            JWTService service,
+            JWTConfig service,
             PasswordEncoder encoder,
             CustomerRepository repository,
             AuthenticationManager authentication) {
@@ -32,7 +28,7 @@ public class AuthService {
         this.authentication = authentication;
     }
 
-    public void signUp(SignUpDTO dto) {
+    public void signUp(CustomerSignUp dto) {
         if (repository.existsByUsername(dto.username()))
             throw new UsernameAlreadyExistsException();
 
@@ -48,7 +44,7 @@ public class AuthService {
         }));
     }
 
-    public TokenDTO signIn(SignInDTO dto) {
+    public CustomerResponse signIn(CustomerSignIn dto) {
         Customer entityExisting = repository
                 .findByUsername(dto.username())
                 .orElseThrow(EmailNotFoundException::new);
@@ -57,7 +53,7 @@ public class AuthService {
             if (!encoder.matches(dto.password(), entityExisting.getPassword()))
                 throw new InvalidPasswordException();
 
-        return new TokenDTO(service.generateToken(authentication.authenticate(
+        return new CustomerResponse(service.generateToken(authentication.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         dto.username(),
                         dto.password()))));

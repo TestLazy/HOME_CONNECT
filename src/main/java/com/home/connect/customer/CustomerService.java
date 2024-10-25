@@ -1,6 +1,5 @@
 package com.home.connect.customer;
 
-import com.home.connect.system.dtos.SignUpDTO;
 import com.home.connect.system.exceptions.PersonalNumberAlreadyExistsException;
 import com.home.connect.system.exceptions.UnauthorizedActionException;
 import com.home.connect.system.exceptions.UsernameAlreadyExistsException;
@@ -34,7 +33,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateById(Integer id, SignUpDTO newEntity) {
+    public void updateById(Integer id, CustomerSignUp newEntity) {
         Customer existingEntity = findById(id);
 
         if (repository.existsByUsername(newEntity.username()))

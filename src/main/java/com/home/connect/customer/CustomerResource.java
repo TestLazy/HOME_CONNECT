@@ -1,6 +1,5 @@
 package com.home.connect.customer;
 
-import com.home.connect.system.dtos.SignUpDTO;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -35,7 +34,7 @@ public class CustomerResource {
 
     @PutMapping("user/{id}")
     public ResponseEntity<String> updateById(@Valid @PathVariable Integer id,
-                                             @RequestBody SignUpDTO dto) {
+                                             @RequestBody CustomerSignUp dto) {
         service.updateById(id, dto);
 
         return ResponseEntity

@@ -1,8 +1,8 @@
-package com.home.connect.system.dtos;
+package com.home.connect.customer;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record SignInDTO(
+public record CustomerSignIn(
         @NotBlank(message = "Obrigatório")
         String username,
 
