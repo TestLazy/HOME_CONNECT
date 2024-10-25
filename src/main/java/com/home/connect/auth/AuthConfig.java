@@ -1,6 +1,6 @@
-package com.home.connect.config;
+package com.home.connect.auth;
 
-import com.home.connect.auth.AuthService;
+import com.home.connect.config.JWTConfig;
 import com.home.connect.customer.CustomerRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
