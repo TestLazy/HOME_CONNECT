@@ -1,11 +1,10 @@
 package com.home.connect.customer;
 
 import com.home.connect.system.exceptions.EntityNotFoundException;
-import com.home.connect.system.exceptions.PersonalNumberAlreadyExistsException;
 import com.home.connect.system.exceptions.UnauthorizedActionException;
 import com.home.connect.system.exceptions.UsernameAlreadyExistsException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,9 +44,6 @@ public class CustomerService {
         if (repository.existsByUsername(newEntity.username()))
             throw new UsernameAlreadyExistsException();
 
-        if (repository.existsByPersonalNumber(newEntity.personalNumber()))
-            throw new PersonalNumberAlreadyExistsException();
-
         if (hasAdminPermission(existingEntity))
             throw new UnauthorizedActionException();
 
@@ -76,8 +72,13 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Customer> findAllPaged(Integer page, Integer size) {
-        return repository.findAllByOrderByUsernameAsc(PageRequest.of(page, size));
+    public Page<Customer> findAllPaged(Pageable pageable) {
+        return repository.findAllByOrderByUsernameAsc(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Customer> searchUsers(String username, Pageable pageable) {
+        return repository.findByUsernameContainingIgnoreCase(username, pageable);
     }
 
     private boolean hasAdminPermission(Customer entity) {

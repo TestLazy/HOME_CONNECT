@@ -2,6 +2,7 @@ package com.home.connect.customer;
 
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +19,18 @@ public class CustomerResource {
 
     @GetMapping("admin/")
     public ResponseEntity<Page<Customer>> findAllPaginad(
+            @RequestParam(value = "username", required = false, defaultValue = "") String username,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer size) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(service.findAllPaged(page, size));
+        if (username.isEmpty() || username.isBlank()) {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(service.findAllPaged(PageRequest.of(page, size)));
+        } else {
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(service.searchUsers(username, PageRequest.of(page, size)));
+        }
     }
 
     @GetMapping("user/{id}")

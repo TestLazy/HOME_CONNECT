@@ -27,6 +27,9 @@ public class Customer implements Serializable {
     @Column(length = 11, unique = true)
     private String personalNumber;
 
+    //@OneToMany(mappedBy = "customer")
+    //private HashSet<Property> properties = new HashSet<>();
+
     public Customer() {}
 
     public Customer(Consumer<Customer> entity) {
@@ -80,6 +83,10 @@ public class Customer implements Serializable {
     public void setPermission(CustomerPermission permission) {
         this.permission = permission.getCode();
     }
+
+    //public HashSet<Property> getProperties() {
+    //    return properties;
+    //}
 
     @Override
     public boolean equals(Object o) {

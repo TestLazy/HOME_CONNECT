@@ -10,5 +10,10 @@ public class ConnectApplication {
     }
 }
 
+// Sobre entidade customer
 // O usuário poderá apenas buscar por Id (Ele mesmo)
 // O admin poderá buscar paginado, atualizar e deletar (apenas usuário)
+
+// Sobre entidade property
+// O usuário poderá apenas buscar por id, salvar
+// O admin poderá cadastrar, buscar paginado, atualizar e deletar

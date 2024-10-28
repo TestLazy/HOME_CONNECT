@@ -11,6 +11,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     Page<Customer> findAllByOrderByUsernameAsc(Pageable pageable);
 
+    Page<Customer> findByUsernameContainingIgnoreCase(String username, Pageable pageable);
+
     Boolean existsByUsername(String username);
 
     Boolean existsByPersonalNumber(String personalNumber);

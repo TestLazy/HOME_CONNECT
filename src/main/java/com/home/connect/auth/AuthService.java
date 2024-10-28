@@ -9,6 +9,7 @@ import com.home.connect.system.exceptions.UsernameAlreadyExistsException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 public class AuthService {
     private final JWTConfig service;
@@ -28,6 +29,7 @@ public class AuthService {
         this.authentication = authentication;
     }
 
+    @Transactional
     public void signUp(CustomerSignUp dto) {
         if (repository.existsByUsername(dto.username()))
             throw new UsernameAlreadyExistsException();
@@ -44,6 +46,7 @@ public class AuthService {
         }));
     }
 
+    @Transactional(readOnly = true)
     public CustomerResponse signIn(CustomerSignIn dto) {
         Customer entityExisting = repository
                 .findByUsername(dto.username())
