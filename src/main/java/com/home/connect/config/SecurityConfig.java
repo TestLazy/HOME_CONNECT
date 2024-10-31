@@ -66,6 +66,7 @@ public class SecurityConfig {
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults()))
 
+                .cors(AbstractHttpConfigurer::disable)
                 .build();
     }
 
