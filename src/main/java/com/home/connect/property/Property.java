@@ -1,5 +1,6 @@
 package com.home.connect.property;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.home.connect.customer.Customer;
 import jakarta.persistence.*;
 
@@ -20,7 +21,8 @@ public class Property implements Serializable {
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal value;
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
     public Property() {}

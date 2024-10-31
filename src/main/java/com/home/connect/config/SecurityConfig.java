@@ -52,6 +52,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/sign-in", "/auth/sign-up")
                         .permitAll()
 
+                        .requestMatchers(HttpMethod.GET, "/properties/all/**")
+                        .permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/customers/user/**")
                         .hasAuthority("SCOPE_" + CustomerPermission.ROLE_USER)
 
@@ -62,6 +65,21 @@ public class SecurityConfig {
                         .hasAuthority("SCOPE_" + CustomerPermission.ROLE_ADMIN)
 
                         .requestMatchers(HttpMethod.DELETE, "/customers/admin/**")
+                        .hasAuthority("SCOPE_" + CustomerPermission.ROLE_ADMIN)
+
+                        .requestMatchers(HttpMethod.POST, "/properties/admin/**")
+                        .hasAuthority("SCOPE_" + CustomerPermission.ROLE_ADMIN)
+
+                        .requestMatchers(HttpMethod.GET, "/properties/admin/**")
+                        .hasAuthority("SCOPE_" + CustomerPermission.ROLE_ADMIN)
+
+                        .requestMatchers(HttpMethod.GET, "/properties/user/**")
+                        .hasAuthority("SCOPE_" + CustomerPermission.ROLE_USER)
+
+                        .requestMatchers(HttpMethod.PUT, "/properties/admin/**")
+                        .hasAuthority("SCOPE_" + CustomerPermission.ROLE_ADMIN)
+
+                        .requestMatchers(HttpMethod.DELETE, "/properties/admin/**")
                         .hasAuthority("SCOPE_" + CustomerPermission.ROLE_ADMIN)
 
                         .anyRequest()

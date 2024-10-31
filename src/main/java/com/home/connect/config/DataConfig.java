@@ -3,18 +3,24 @@ package com.home.connect.config;
 import com.home.connect.customer.Customer;
 import com.home.connect.customer.CustomerPermission;
 import com.home.connect.customer.CustomerRepository;
+import com.home.connect.property.Property;
+import com.home.connect.property.PropertyRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Component
 public class DataConfig implements CommandLineRunner {
     private final PasswordEncoder encoder;
     private final CustomerRepository repository;
+    private final PropertyRepository propertyRepository;
 
-    public DataConfig(PasswordEncoder encoder, CustomerRepository repository) {
+    public DataConfig(PasswordEncoder encoder, CustomerRepository repository, PropertyRepository propertyRepository) {
         this.encoder = encoder;
         this.repository = repository;
+        this.propertyRepository = propertyRepository;
     }
 
     @Override
@@ -41,6 +47,15 @@ public class DataConfig implements CommandLineRunner {
                     entity.setPersonalNumber("111-111-111");
                     entity.setPermission(CustomerPermission.ROLE_USER);
                     return repository.save(entity);
+                });
+
+        propertyRepository
+                .findByDescription("PropertyTest")
+                .orElseGet(() -> {
+                    Property entity = new Property();
+                    entity.setDescription("PropertyTest");
+                    entity.setValue(BigDecimal.valueOf(125000));
+                    return propertyRepository.save(entity);
                 });
     }
 }

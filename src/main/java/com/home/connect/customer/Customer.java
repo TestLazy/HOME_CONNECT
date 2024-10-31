@@ -1,9 +1,13 @@
 package com.home.connect.customer;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.home.connect.property.Property;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @Entity
@@ -27,8 +31,9 @@ public class Customer implements Serializable {
     @Column(length = 11, unique = true)
     private String personalNumber;
 
-    //@OneToMany(mappedBy = "customer")
-    //private HashSet<Property> properties = new HashSet<>();
+    @JsonManagedReference
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Property> properties = new HashSet<>();
 
     public Customer() {}
 
@@ -84,9 +89,9 @@ public class Customer implements Serializable {
         this.permission = permission.getCode();
     }
 
-    //public HashSet<Property> getProperties() {
-    //    return properties;
-    //}
+    public Set<Property> getProperties() {
+        return properties;
+    }
 
     @Override
     public boolean equals(Object o) {
