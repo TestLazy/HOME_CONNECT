@@ -26,7 +26,7 @@ public class AuthResource {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body("Conta criada com sucesso!");
+                .body("Criada com sucesso!");
     }
 
     @PostMapping("sign-in")

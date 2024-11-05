@@ -46,7 +46,7 @@ public class CustomerResource {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Mensagem: Atualizada com sucesso!");
+                .body("Atualizada com sucesso!");
     }
 
     @DeleteMapping("admin/{id}")
@@ -55,6 +55,6 @@ public class CustomerResource {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Mensagem: Deletado com sucesso!");
+                .body("Deletado com sucesso!");
     }
 }

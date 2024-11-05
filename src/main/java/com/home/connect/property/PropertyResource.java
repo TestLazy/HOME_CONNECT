@@ -24,7 +24,7 @@ public class PropertyResource {
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body("Propriedade criada com sucesso!");
+                .body("Criada com sucesso!");
     }
 
     @GetMapping("user/{idCustomer}/{idProperty}")
@@ -33,7 +33,7 @@ public class PropertyResource {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Propriedade adicionada com sucesso!");
+                .body("Adicionada com sucesso!");
     }
 
     @GetMapping("all/{id}")
@@ -66,7 +66,7 @@ public class PropertyResource {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Mensagem: Atualizada com sucesso!");
+                .body("Atualizada com sucesso!");
     }
 
     @DeleteMapping("admin/{id}")
@@ -75,6 +75,6 @@ public class PropertyResource {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body("Mensagem: Deletado com sucesso!");
+                .body("Deletado com sucesso!");
     }
 }
