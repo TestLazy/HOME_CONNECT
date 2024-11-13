@@ -41,37 +41,7 @@ public class CustomerResource {
 
     @PutMapping("admin/{id}")
     public ResponseEntity<String> updateById(@Valid @PathVariable Integer id,
-                                             @RequestBody CustomerSignUp dto) {
-        service.updateById(id, dto);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body("Atualizada com sucesso!");
-    }
-
-    @PutMapping("admin/username/{id}")
-    public ResponseEntity<String> updateById(@Valid @PathVariable Integer id,
-                                             @RequestBody CustomerUsername dto) {
-        service.updateById(id, dto);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body("Atualizada com sucesso!");
-    }
-
-    @PutMapping("admin/password/{id}")
-    public ResponseEntity<String> updateById(@Valid @PathVariable Integer id,
-                                             @RequestBody CustomerPassword dto) {
-        service.updateById(id, dto);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body("Atualizada com sucesso!");
-    }
-
-    @PutMapping("admin/fullname/{id}")
-    public ResponseEntity<String> updateById(@Valid @PathVariable Integer id,
-                                             @RequestBody CustomerFullName dto) {
+                                             @RequestBody CustomerDTO dto) {
         service.updateById(id, dto);
 
         return ResponseEntity

@@ -36,93 +36,38 @@ public class CustomerService {
     }
 
     @Transactional
-    public void updateById(Integer id, CustomerSignUp newEntity) {
+    public void updateById(Integer id, CustomerDTO newEntity) {
         Customer existingEntity = repository
                 .findById(id)
                 .orElseThrow(EntityNotFoundException::new);
 
-        if (repository.existsByUsername(newEntity.username()))
-            throw new UsernameAlreadyExistsException();
+        if (newEntity.username() != null &&
+                !existingEntity.getUsername().equals(newEntity.username())) {
+            boolean usernameExists = repository.existsByUsername(newEntity.username());
 
+            if (usernameExists) {
+                Customer conflictingUser = repository
+                        .findByUsername(newEntity.username())
+                        .orElseThrow(UsernameAlreadyExistsException::new);
+
+                if (!conflictingUser.getId().equals(id)) {
+                    throw new UsernameAlreadyExistsException();
+                }
+            }
+        }
         if (hasAdminPermission(existingEntity))
             throw new UnauthorizedActionException();
 
-        Customer updatedEntity = new Customer();
+        if (newEntity.username() != null)
+            existingEntity.setUsername(newEntity.username());
 
-        updatedEntity.setId(existingEntity.getId());
-        updatedEntity.setUsername(newEntity.username());
-        updatedEntity.setPassword(encoder.encode(newEntity.password()));
-        updatedEntity.setFullName(newEntity.fullName());
-        updatedEntity.setPersonalNumber(existingEntity.getPersonalNumber());
-        updatedEntity.setPermission(existingEntity.getPermission());
+        if (newEntity.password() != null)
+            existingEntity.setPassword(encoder.encode(newEntity.password()));
 
-        repository.save(updatedEntity);
-    }
+        if (newEntity.fullName() != null)
+            existingEntity.setFullName(newEntity.fullName());
 
-    @Transactional
-    public void updateById(Integer id, CustomerUsername newEntity) {
-        Customer existingEntity = repository
-                .findById(id)
-                .orElseThrow(EntityNotFoundException::new);
-
-        if (repository.existsByUsername(newEntity.username()))
-            throw new UsernameAlreadyExistsException();
-
-        if (hasAdminPermission(existingEntity))
-            throw new UnauthorizedActionException();
-
-        Customer updatedEntity = new Customer();
-
-        updatedEntity.setId(existingEntity.getId());
-        updatedEntity.setUsername(newEntity.username());
-        updatedEntity.setPassword(existingEntity.getPassword());
-        updatedEntity.setFullName(existingEntity.getFullName());
-        updatedEntity.setPersonalNumber(existingEntity.getPersonalNumber());
-        updatedEntity.setPermission(existingEntity.getPermission());
-
-        repository.save(updatedEntity);
-    }
-
-    @Transactional
-    public void updateById(Integer id, CustomerPassword newEntity) {
-        Customer existingEntity = repository
-                .findById(id)
-                .orElseThrow(EntityNotFoundException::new);
-
-        if (hasAdminPermission(existingEntity))
-            throw new UnauthorizedActionException();
-
-        Customer updatedEntity = new Customer();
-
-        updatedEntity.setId(existingEntity.getId());
-        updatedEntity.setUsername(existingEntity.getUsername());
-        updatedEntity.setPassword(encoder.encode(newEntity.password()));
-        updatedEntity.setFullName(existingEntity.getFullName());
-        updatedEntity.setPersonalNumber(existingEntity.getPersonalNumber());
-        updatedEntity.setPermission(existingEntity.getPermission());
-
-        repository.save(updatedEntity);
-    }
-
-    @Transactional
-    public void updateById(Integer id, CustomerFullName newEntity) {
-        Customer existingEntity = repository
-                .findById(id)
-                .orElseThrow(EntityNotFoundException::new);
-
-        if (hasAdminPermission(existingEntity))
-            throw new UnauthorizedActionException();
-
-        Customer updatedEntity = new Customer();
-
-        updatedEntity.setId(existingEntity.getId());
-        updatedEntity.setUsername(existingEntity.getUsername());
-        updatedEntity.setPassword(existingEntity.getPassword());
-        updatedEntity.setFullName(newEntity.fullName());
-        updatedEntity.setPersonalNumber(existingEntity.getPersonalNumber());
-        updatedEntity.setPermission(existingEntity.getPermission());
-
-        repository.save(updatedEntity);
+        repository.save(existingEntity);
     }
 
     @Transactional
