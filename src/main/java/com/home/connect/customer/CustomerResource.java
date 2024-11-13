@@ -49,6 +49,36 @@ public class CustomerResource {
                 .body("Atualizada com sucesso!");
     }
 
+    @PutMapping("admin/username/{id}")
+    public ResponseEntity<String> updateById(@Valid @PathVariable Integer id,
+                                             @RequestBody CustomerUsername dto) {
+        service.updateById(id, dto);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Atualizada com sucesso!");
+    }
+
+    @PutMapping("admin/password/{id}")
+    public ResponseEntity<String> updateById(@Valid @PathVariable Integer id,
+                                             @RequestBody CustomerPassword dto) {
+        service.updateById(id, dto);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Atualizada com sucesso!");
+    }
+
+    @PutMapping("admin/fullname/{id}")
+    public ResponseEntity<String> updateById(@Valid @PathVariable Integer id,
+                                             @RequestBody CustomerFullName dto) {
+        service.updateById(id, dto);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body("Atualizada com sucesso!");
+    }
+
     @DeleteMapping("admin/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Integer id) {
         service.deleteById(id);

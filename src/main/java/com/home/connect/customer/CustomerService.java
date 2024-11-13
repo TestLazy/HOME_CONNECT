@@ -60,6 +60,72 @@ public class CustomerService {
     }
 
     @Transactional
+    public void updateById(Integer id, CustomerUsername newEntity) {
+        Customer existingEntity = repository
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        if (repository.existsByUsername(newEntity.username()))
+            throw new UsernameAlreadyExistsException();
+
+        if (hasAdminPermission(existingEntity))
+            throw new UnauthorizedActionException();
+
+        Customer updatedEntity = new Customer();
+
+        updatedEntity.setId(existingEntity.getId());
+        updatedEntity.setUsername(newEntity.username());
+        updatedEntity.setPassword(existingEntity.getPassword());
+        updatedEntity.setFullName(existingEntity.getFullName());
+        updatedEntity.setPersonalNumber(existingEntity.getPersonalNumber());
+        updatedEntity.setPermission(existingEntity.getPermission());
+
+        repository.save(updatedEntity);
+    }
+
+    @Transactional
+    public void updateById(Integer id, CustomerPassword newEntity) {
+        Customer existingEntity = repository
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        if (hasAdminPermission(existingEntity))
+            throw new UnauthorizedActionException();
+
+        Customer updatedEntity = new Customer();
+
+        updatedEntity.setId(existingEntity.getId());
+        updatedEntity.setUsername(existingEntity.getUsername());
+        updatedEntity.setPassword(encoder.encode(newEntity.password()));
+        updatedEntity.setFullName(existingEntity.getFullName());
+        updatedEntity.setPersonalNumber(existingEntity.getPersonalNumber());
+        updatedEntity.setPermission(existingEntity.getPermission());
+
+        repository.save(updatedEntity);
+    }
+
+    @Transactional
+    public void updateById(Integer id, CustomerFullName newEntity) {
+        Customer existingEntity = repository
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        if (hasAdminPermission(existingEntity))
+            throw new UnauthorizedActionException();
+
+        Customer updatedEntity = new Customer();
+
+        updatedEntity.setId(existingEntity.getId());
+        updatedEntity.setUsername(existingEntity.getUsername());
+        updatedEntity.setPassword(existingEntity.getPassword());
+        updatedEntity.setFullName(newEntity.fullName());
+        updatedEntity.setPersonalNumber(existingEntity.getPersonalNumber());
+        updatedEntity.setPermission(existingEntity.getPermission());
+
+        repository.save(updatedEntity);
+    }
+
+    @Transactional
     public void deleteById(Integer id) {
         Customer existingEntity = repository
                 .findById(id)
